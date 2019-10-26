@@ -8,5 +8,5 @@ nodejs:
  
 
 script:
-  - powershell startShell.ps
+  - ./startShell.ps1
   - ls
