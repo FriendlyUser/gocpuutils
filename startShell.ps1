@@ -1,6 +1,5 @@
-Set-ExecutionPolicy RemoteSigned
 choco install -y nodejs
-choco install -y mingw
+choco install -y mingw || true
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") || true
 node --version || true || npm --version
 go get ./...
