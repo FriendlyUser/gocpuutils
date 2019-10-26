@@ -1,0 +1,18 @@
+{
+ "name": "comp_util",
+ "description": "Enter your project description",
+ "author": {
+  "name": "David Li",
+  "email": "davidli012345@gmail.com"
+ },
+ "version": "0.1.0",
+ "binaryname": "comp_util.exe",
+ "frontend": {
+  "dir": "frontend",
+  "install": "npm install",
+  "build": "npm run build",
+  "bridge": "src",
+  "serve": "npm run serve"
+ },
+ "WailsVersion": ""
+}
