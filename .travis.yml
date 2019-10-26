@@ -8,6 +8,7 @@ go:
 before_install:
   - choco install -y nodejs
   - choco install -y mingw
+  - refreshenv
   - node --version || true || npm --version
   - go get ./...
   - go get github.com/wailsapp/wails/cmd/wails
