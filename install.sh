@@ -7,7 +7,10 @@ if [ $TRAVIS_OS_NAME = 'osx' ]; then
   xcode-select --install
 else if [ $TRAVIS_OS_NAME = 'linux' ]; then
   # Install some custom requirements on Linux
-  sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev
+  sudo apt-get update -y
+  sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev -y
+  sudo apt-get install build-essential libgtk-3-dev -y
+  
 else 
   # install dependencies on windows
   choco install -y mingw
