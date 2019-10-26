@@ -1,4 +1,4 @@
-choco install -y nodejs
+choco install -y nodejs || true
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 node --version || true || npm --version
 go get ./...
