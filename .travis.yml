@@ -10,8 +10,22 @@ go:
 before_install:
   - go get ./...
   - go get github.com/wailsapp/wails/cmd/wails
-install:
-  - chmod +x install.sh && ./install.sh
+stages:
+  - name: linux
+    # require the branch name to be master (note for PRs this is the base branch name)
+    if: os = linux
+      install:
+        sudo apt-get update -y
+        sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev -y
+        sudo apt-get install build-essential libgtk-3-dev -y
+  - name: osx 
+    if: os = osx
+      install:
+        xcode-select --install
+  - name: windows
+      install:
+        choco install -y mingw
+
 script:
   - wails build
   - ls
