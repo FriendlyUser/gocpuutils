@@ -14,3 +14,4 @@ install:
   - chmod +x install.sh && ./install.sh
 script:
   - wails build
+  - ls
