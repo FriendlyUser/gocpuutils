@@ -5,18 +5,8 @@ os:
 go:
 - 1.13.x
 nodejs:
-
-before_install:
-  - choco install -y nodejs
-  - choco install -y mingw
-  - powershell || true
-  - powershell refreshenv || true 
-  - refreshenv || true
-  - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") || true
-  - node --version || true || npm --version
-  - go get ./...
-  - go get github.com/wailsapp/wails/cmd/wails
+ 
 
 script:
-  - wails build
+  - powershell startShell.ps
   - ls
