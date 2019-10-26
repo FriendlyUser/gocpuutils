@@ -1,0 +1,20 @@
+# appveyor.yml
+build: off
+
+clone_folder: c:\gopath\src\github.com\$username\$project
+
+environment:
+  GOPATH: c:\gopath
+
+stack: go 1.13
+
+before_test:
+  - go get ./...
+  - choco install -y nodejs
+  - refreshenv
+  - node --version || true || npm --version
+  - go get ./...
+  - go get github.com/wailsapp/wails/cmd/wails
+
+test_script:
+  - wails build
