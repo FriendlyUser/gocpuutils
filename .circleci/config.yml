@@ -10,10 +10,10 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-      - run: choco install -y strawberryperl
+      - run: choco install -y mingw
+      - run: ./resetEnv.bat || true
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
-      - run: ./resetEnv.bat || true
       - run: go env GOPATH
       - run: $GOPATH/wails build || true
       - run: $GOPATH/wails build || true
