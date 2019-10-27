@@ -17,9 +17,9 @@ before_test:
     go get ./...
     go get github.com/wailsapp/wails/cmd/wails
     refreshenv
+  - ps: |
       [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\wails.exe", "Machine")
       [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\mewn.exe", "Machine")
-    refreshenv
   - ps: Start-Sleep -s 10
   - ps: Restart-Computer
   - ps: Start-Sleep -s 10
