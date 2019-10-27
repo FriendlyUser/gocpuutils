@@ -15,12 +15,6 @@ before_test:
   - node --version || true || npm --version
   - go get ./...
   - go get -u github.com/wailsapp/wails/cmd/wails
-  - refreshenv
-  - set PATH="%PATH%;C:\gopath"
-  - set PATH="%PATH%;C:\gopath\bin"
-  - set PATH="%PATH%;c:\gopath"
-  - set PATH="%PATH%;c:\gopath\bin"
-  - refreshenv
   - resetEnv.bat
   - wails version
 
