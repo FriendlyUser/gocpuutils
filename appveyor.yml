@@ -8,7 +8,7 @@ stack: go 1.13
 
 before_test:
   - choco install -y nodejs
-  - choco install -y gcc
+  - choco install -y mingw
   - refreshenv
   - go get ./...
   - node --version || true || npm --version
