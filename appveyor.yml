@@ -16,8 +16,8 @@ before_test:
   - go get ./...
   - go get -u github.com/wailsapp/wails/cmd/wails
   - refreshenv
-  - setx path "%path%;c:\gopath\bin"
-  - setx path "%path%;c:\gopath"
+  - set PATH="%PATH%;C:\gopath"
+  - set PATH="%PATH%;C:\gopath\bin"
   - refreshenv
   - wails version
 
