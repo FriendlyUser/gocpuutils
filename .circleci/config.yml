@@ -7,10 +7,13 @@ jobs:
   build:
     executor:
       name: win/vs2019
-      shell: powershell.exe
+      shell: bash.exe
     steps:
       - checkout
-      - run: choco install -y strawberryperl
+      - run: choco install -y strawberryperl || true
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
-      - run: wails build
+      - run: ./resetEnv.bat || true
+      - run: go env GOPATH
+      - run: $GOPATH/wails build || true
+      - run: $GOPATH/wails build || true
