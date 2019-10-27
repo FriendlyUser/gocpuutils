@@ -10,7 +10,7 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-      - run: choco install -y codeblocks choco install gcc-arm-embedded msys2 graphicsmagick --ignore-checksums
+      - run: choco install -y gcc-arm-embedded --ignore-checksums
       # - run: curl -o outputfile.exe http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm-gcc-5.1.0-3.exe/download  tdm-gcc.exe
       - run: go get ./...
       # - run: ./outputfile.exe || true
