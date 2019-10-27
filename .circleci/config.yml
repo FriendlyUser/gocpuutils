@@ -10,7 +10,7 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-      - run: choco install -y mingw --ignore-checksums
+      - run: choco install -y codeblocks --ignore-checksums
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: wails build
