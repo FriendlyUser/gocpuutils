@@ -10,7 +10,7 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: choco install -y mingw
+      - run: choco install -y qt-sdk-windows-x64-mingw_sjlj
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: wails build
