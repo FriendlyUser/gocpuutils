@@ -10,9 +10,7 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-      # - run: choco install -y mingw
-      - run: curl -o outputfile.exe http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm-gcc-5.1.0-3.exe/download
-      - run: ./outputfile.exe || true
+      - run: choco install -y mingw
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: wails build
