@@ -1,6 +1,7 @@
 # appveyor.yml
 build: off
 
+clone_folder: c:\gopath\src\github.com\FriendlyUser\WailsTest
 environment:
   GOPATH: c:\gopath
 
@@ -16,7 +17,7 @@ before_test:
   - go get ./...
   - go get -u github.com/wailsapp/wails/cmd/wails
   - refreshenv
-  - wails version || true
+  - c:\gopath\src\github.com\wailsapp\wails version || true
 
 test_script:
-  - wails build
+  - c:\gopath\src\github.com\wailsapp\wails build
