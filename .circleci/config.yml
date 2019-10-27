@@ -12,6 +12,7 @@ jobs:
       - checkout
       - run: choco install -y mingw
       - run: ./resetEnv.bat || true
+      - run: go get github.com/leaanthony/mewn/cmd/mewn
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: go env GOPATH
