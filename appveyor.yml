@@ -14,11 +14,11 @@ before_test:
   - go get ./...
   - node --version || true || npm --version
   - go get ./...
-  - go get -u github.com/wailsapp/wails/cmd/wails
+  - go get github.com/wailsapp/wails/cmd/wails
   - refreshenv
   - resetEnv.bat
-  - wails.exe version
+  - wails version
 
 test_script:
   - set GOMODULES=on
-  - wails.exe build
+  - wails build
