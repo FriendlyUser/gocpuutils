@@ -12,8 +12,10 @@ before_test:
   - refreshenv
   - go get ./...
   - node --version || true || npm --version
+  - export GOMODULES=on
   - go get ./...
   - go get github.com/wailsapp/wails/cmd/wails
+  - refreshenv
 
 test_script:
   - wails build
