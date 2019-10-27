@@ -15,6 +15,7 @@ jobs:
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: go env GOPATH
+      - run: source ~/.bashrc
       - run: C:\Users\circleci\go\bin\wails build || true
       - run: C:\Users\circleci\go\bin\wails build || true
       - run: wails build || true
