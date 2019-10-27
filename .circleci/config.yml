@@ -10,7 +10,7 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: choco install -y msys2
+      - run: choco install -y strawberryperl
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: wails build
