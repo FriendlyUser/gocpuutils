@@ -14,7 +14,7 @@ before_test:
   - node --version || true || npm --version
   - set GOMODULES=on || true
   - go get ./...
-  - go get github.com/wailsapp/wails/cmd/wails
+  - go get -u github.com/wailsapp/wails/cmd/wails
   - refreshenv
   - wails version || true
 
