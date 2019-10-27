@@ -10,7 +10,7 @@ jobs:
       shell: bash.exe
     steps:
       - checkout
-      - run: choco install -y strawberryperl || true
+      - run: choco install -y strawberryperl
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: ./resetEnv.bat || true
