@@ -19,8 +19,8 @@ before_test:
   - setx path "%path%;c:\gopath\bin"
   - setx path "%path%;c:\gopath"
   - refreshenv
-  - wails.exe version
+  - wails version
 
 test_script:
   - set GOMODULES=on
-  - wails.exe build
+  - wails build
