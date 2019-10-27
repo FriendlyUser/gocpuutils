@@ -15,6 +15,11 @@ before_test:
   - node --version || true || npm --version
   - go get ./...
   - go get github.com/wailsapp/wails/cmd/wails
+  - ps: |
+      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin", "Machine")
+  - ps: Start-Sleep -s 10
+  - ps: Restart-Computer
+  - ps: Start-Sleep -s 10
   - refreshenv
   - resetEnv.bat
   - wails version
