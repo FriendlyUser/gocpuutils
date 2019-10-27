@@ -7,8 +7,9 @@ environment:
 stack: go 1.13
 
 before_test:
-  - go get ./...
   - choco install -y nodejs
+  - choco install -y gcc
+  - go get ./...
   - refreshenv
   - node --version || true || npm --version
   - go get ./...
