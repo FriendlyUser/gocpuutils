@@ -15,14 +15,16 @@ before_test:
   - node --version || true || npm --version
   - go get ./...
   - go get github.com/wailsapp/wails/cmd/wails
+  - refreshenv
+  - resetEnv.bat
   - ps: |
-      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin", "Machine")
+      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\wails.exe", "Machine")
+      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\mewn.exe", "Machine")
   - ps: Start-Sleep -s 10
   - ps: Restart-Computer
   - ps: Start-Sleep -s 10
-  - refreshenv
-  - resetEnv.bat
-  - wails version
+  - ps: wails version
+  - ps: wails build
 
 test_script:
   - set GOMODULES=on
