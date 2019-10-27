@@ -3,6 +3,7 @@ echo.
 echo Refreshing PATH from registry
 SET PATH=%PATH%;c:gopath\bin
 SET PATH=%PATH%;c:\gopath
+SET PATH=%PATH%;c:gopath\bin\wails
 :: Get System PATH
 for /f "tokens=3*" %%A in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v Path') do set syspath=%%A%%B
 
