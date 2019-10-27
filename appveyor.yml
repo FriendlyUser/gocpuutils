@@ -17,8 +17,8 @@ before_test:
   - go get github.com/wailsapp/wails/cmd/wails
   - refreshenv
   - resetEnv.bat
-  - c:\gopath\bin\wails version
+  - wails version
 
 test_script:
   - set GOMODULES=on
-  - c:\gopath\bin\wails build
+  - wails build
