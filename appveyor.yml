@@ -18,7 +18,10 @@ before_test:
   - refreshenv
   - set PATH="%PATH%;C:\gopath"
   - set PATH="%PATH%;C:\gopath\bin"
+  - set PATH="%PATH%;c:\gopath"
+  - set PATH="%PATH%;c:\gopath\bin"
   - refreshenv
+  - resetEnv.bat
   - wails version
 
 test_script:
