@@ -17,6 +17,8 @@ before_test:
   - go get -u github.com/wailsapp/wails/cmd/wails
   - refreshenv
   - setx path "%path%;c:\gopath\bin"
+  - setx path "%path%;c:\gopath"
+  - refreshenv
   - c:\gopath\bin\wails.exe version
 
 test_script:
