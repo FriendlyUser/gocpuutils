@@ -4,6 +4,7 @@ build: off
 clone_folder: c:\gopath\src\github.com\FriendlyUser\WailsTest
 environment:
   GOPATH: c:\gopath
+  GOMODULES: on
 
 stack: go 1.13
 
