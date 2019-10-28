@@ -15,8 +15,8 @@ jobs:
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: go env GOPATH
-      - run: mklink mewn C:\Users\circleci\go/bin\mewn.exe || true
-      - run: mklink wails C:\Users\circleci\go/bin\wails.exe || true
+      - run: mklink mewn C:\Users\circleci\go\bin\mewn.exe || true
+      - run: mklink wails C:\Users\circleci\go\bin\wails.exe || true
       - run: cp C:\Users\circleci\go/bin\mewn.exe menn.exe || true
       - run: source ~/.bashrc || true
       - run: ./resetEnv.bat || true
