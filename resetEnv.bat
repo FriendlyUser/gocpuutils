@@ -11,7 +11,11 @@ for /f "tokens=3*" %%A in ('reg query "HKCU\Environment" /v Path') do set userpa
 set PATH=%userpath%;%syspath%
 set PATH=%PATH%;c:gopath\bin
 set PATH=%PATH%;c:\gopath
-set PATH=%PATH%;c:gopath\bin\wails.exe
-set PATH=%PATH%;c:gopath\bin\mewn.exe
+set PATH=%PATH%;c:\Users\circleci\go\bin\wails.exe
+set PATH=%PATH%;c:\Users\circleci\go\bin\mewn.exe
+set PATH=%PATH%;C:\Users\circleci\go\bin\wails.exe
+set PATH=%PATH%;C:\Users\circleci\go\bin\mewn.exe
+set PATH=%PATH%;c:gopath\bin
+set PATH=%PATH%;c:\gopath
 echo Refreshed PATH
 echo %PATH%
