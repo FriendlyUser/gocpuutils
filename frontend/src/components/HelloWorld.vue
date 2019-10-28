@@ -8,7 +8,7 @@
           </v-layout>
           <v-card-actions>
             <v-layout justify-center align-center class="px-0">
-              <v-btn color="blue" dark @click="getMessage">Press Me</v-btn>
+              <v-btn color="blue" dark @click="getFilesInDir">Get Files</v-btn>
             </v-layout>
           </v-card-actions>
         </v-card>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Wails from '@wailsapp/runtime'
 export default {
   data() {
     return {
@@ -46,7 +47,25 @@ export default {
         self.message = result;
         self.dialog = true;
       });
+    },
+    getFilesInDir: function() {
+      var self = this;
+      Wails.Log.Info("New Code is Going on");
+      console.log("Doing Something")
+      console.log(window.backend)
+      window.backend.Todos.GetFiles().then(result => {
+        console.log(result)
+      }).catch(err => {
+        console.log(err)
+      })
+      // window.backend.Todos.getFiles().then(result => {
+      //   console.log(result)
+      //   console.log("Got Here")
+      //   Wails.Log.Info("Do Something Here")
+      // });
     }
+  },
+  mounted() {
   }
 };
 </script>

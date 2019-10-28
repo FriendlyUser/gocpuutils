@@ -3,29 +3,23 @@ build: off
 
 clone_folder: c:\gopath\src\github.com\FriendlyUser\WailsTest
 environment:
-  GOMODULES: on
+  GOPATH: c:\gopath
 
 stack: go 1.13
 
 before_test:
-  - ps: |
-    choco install -y nodejs
-    choco install -y mingw
-    refreshenv
-    go get ./...
-    node --version || true || npm --version
-    go get ./...
-    go get github.com/wailsapp/wails/cmd/wails
-    refreshenv
-  - ps: |
-      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\wails.exe", "Machine")
-      [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\gopath\bin\mewn.exe", "Machine")
-  - ps: Start-Sleep -s 10
-  - ps: Restart-Computer
-  - ps: Start-Sleep -s 10
-  - ps: wails version
-  - ps: wails build
+  - choco install -y nodejs
+  - choco install -y mingw
+  - refreshenv
+  - go get ./...
+  - node --version || true || npm --version
+  - go get ./...
+  - go get -u github.com/wailsapp/wails/cmd/wails
+  - refreshenv
+  - setx path "%path%;c:\gopath\bin"
+  - setx path "%path%;c:\gopath"
+  - refreshenv
+  - wails.exe version
 
 test_script:
-  - set GOMODULES=on
-  - wails build
+  - wails.exe build
