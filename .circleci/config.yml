@@ -16,6 +16,7 @@ jobs:
       - run: go get ./...
       - run: go get -u github.com/wailsapp/wails/cmd/wails
       - run: go env GOPATH
+      - run: cmd  /c "mklink mewn C:/Users/circleci/go/bin/mewn" || true
       - run: source ~/.bashrc || true
       - run: C:/Users/circleci/go/bin/wails build || true
       - run: C:/Users/circleci/go/bin/wails build || true
