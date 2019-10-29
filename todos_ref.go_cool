@@ -30,8 +30,7 @@ func (t *Todos) GetFiles() (string, error) {
   t.logger.Infof("This is fine")
 	// filename := t.runtime.Dialog.SelectFile()
 	// call is directory IsDirectory
-  // values := iterateJSON("frontend/src")
-  values := iterateJSON("frontend")
+	values := iterateJSON("frontend/src")
 	// if len(filename) > 0 {
 	// 	// t.setFilename(filename)
 	// 	t.runtime.Events.Emit("filemodified")
@@ -62,19 +61,10 @@ type File struct {
   IsLink       bool      `json:"IsLink"`
   IsDir        bool      `json:"IsDir"`
   LinksTo      string    `json:"LinksTo"`
-  Size         int64     `json:"value"`
-  Name         string    `json:"label"`
+  Size         int64     `json:"Size"`
+  Name         string    `json:"Name"`
   Path         string    `json:"Path"`
-  Children     []*File   `json:"children"`
-}
-
-func stringInSlice(a string, list []string) bool {
-  for _, b := range list {
-      if b == a {
-          return true
-      }
-  }
-  return false
+  Children     []*File   `json:"Children"`
 }
 
 func iterateJSON(path string) []byte {
@@ -86,11 +76,9 @@ func iterateJSON(path string) []byte {
       stack = stack[:len(stack)-1]
       children, _ := ioutil.ReadDir(file.Path) //get the children of entry
       for _, chld := range children {          //for each child
-        if stringInSlice(chld.Name(), []string{"node_modules", "dist", "package-lock.json", "assets/images/logo.png", "logo.png"}) == false {
           child := toFile(chld, filepath.Join(file.Path, chld.Name())) //turn it into a File object
           file.Children = append(file.Children, child)                 //append it to the children of the current file popped
           stack = append(stack, child)                                 //append the child to the stack, so the same process can be run again
-        }
       }
   }
   output, _ := json.MarshalIndent(rootFile, "", "     ")
