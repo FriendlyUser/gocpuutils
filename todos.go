@@ -8,13 +8,15 @@ import (
 	"path/filepath"
   "time"
 	"io/ioutil"
-	"github.com/wailsapp/wails"
+  "github.com/wailsapp/wails"
+  "strings"
 )
 
 type Todos struct {
-	filename string
+  filename string
+  SelectedDir string
 	runtime  *wails.Runtime
-	logger   *wails.CustomLogger
+  logger   *wails.CustomLogger
 }
 
 // NewTodos attempts to create a new Todo list
@@ -28,19 +30,24 @@ func NewTodos() (*Todos, error) {
 // file picker seems broken for now
 func (t *Todos) GetFiles() (string, error) {
   t.logger.Infof("This is fine")
-	// filename := t.runtime.Dialog.SelectFile()
-	// call is directory IsDirectory
-  // values := iterateJSON("frontend/src")
-  values := iterateJSON("frontend")
+  filename := t.runtime.Dialog.SelectDirectory()
+  directory := strings.Replace(filename, "\\", "//", -1)
+  t.logger.Infof(directory)
+  // call is directory IsDirectory
+  values := iterateJSON(directory)
+  // values := iterateJSON(filename)
 	// if len(filename) > 0 {
 	// 	// t.setFilename(filename)
 	// 	t.runtime.Events.Emit("filemodified")
   // }
-  dir, _ := os.Getwd()
-  t.logger.Infof(dir)
-  t.logger.Infof(dir)
+  t.SelectedDir = filename
   return string(values), nil
 }
+func (t *Todos) GetDir() (string, error) {
+  t.logger.Infof(t.SelectedDir)
+  return string(t.SelectedDir), nil
+}
+
 func (t *Todos) WailsInit(runtime *wails.Runtime) error {
 	t.runtime = runtime
 	t.logger = t.runtime.Log.New("Todos")

@@ -7,6 +7,13 @@ Vue.use(Vuetify);
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
 
+import VueGoogleCharts from 'vue-google-charts'
+ 
+Vue.use(VueGoogleCharts)
+import VueApexCharts from 'vue-apexcharts'
+
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
 import App from './App.vue';
 
 Vue.config.productionTip = false;

@@ -9,10 +9,13 @@
           <v-card-actions>
             <v-layout justify-center align-center class="px-0">
               <v-btn color="blue" dark @click="getFilesInDir">Get Files</v-btn>
+              <treemap-chart :data="chartData" :options="options" />
             </v-layout>
           </v-card-actions>
         </v-card>
+        <apexchart type="radialBar" :options="options" :series="series"></apexchart>
         <treemap-chart :data="chartData" :options="options" />
+        <TreeMap />
       </v-flex>
     </v-layout>
     <div class="text-xs-center">
@@ -32,92 +35,17 @@
 </template>
 
 <script>
-import 'tui-chart/dist/tui-chart.css'
-import { treemapChart } from '@toast-ui/vue-chart'
 import Wails from '@wailsapp/runtime'
 export default {
-  components: {
-    'treemap-chart': treemapChart
-  },
   data() {
     return {
+      series: [87],
+      options: {
+        labels: ['CPU Usage']
+      },
       message: " ",
       raised: true,
       dialog: false,
-      chartData: { // for 'data' prop of 'bar-chart'
-          series: [
-            {
-                label: 'Documents',
-                children: [
-                    {
-                        label: 'docs',
-                        children: [
-                            {
-                                label: 'pages',
-                                value: 1.3
-                            },
-                            {
-                                label: 'keynote',
-                                value: 2.5
-                            },
-                            {
-                                label: 'numbers',
-                                value: 1.2
-                            }
-                        ]
-                    },
-                    {
-                        label: 'photos',
-                        value: 5.5
-                    },
-                    {
-                        label: 'videos',
-                        value: 20.7
-                    }
-                ]
-            }, {
-                label: 'Downloads',
-                children: [
-                    {
-                        label: 'recents',
-                        value: 5.3
-                    }, {
-                        label: '2015',
-                        value: 10.1
-                    }, {
-                        label: '2014',
-                        value: 8.2
-                    }
-                ]
-            }, {
-                label: 'Application',
-                value: 16.4
-            }, {
-                label: 'Desktop',
-                value: 4.5
-            }
-          ],
-      },
-      options: {
-        series: {
-          showLabel: true,
-          zoomable: false,
-          useLeafLabel: true
-        },
-        tooltip: {
-          suffix: 'GB'
-        }
-      },
-      theme: {
-        series: {
-          colors: [
-              '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
-              '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
-          ],
-          borderColor: '#cccccc',
-          borderWidth: 5
-        }
-      }
     }
   },
   methods: {
@@ -140,6 +68,14 @@ export default {
       }).catch(err => {
         // console.log(err)
         console.log(err)
+      })
+       window.backend.Todos.GetDir().then(result => {
+        self.chartData = {
+          series: [JSON.parse(result)]
+        }
+      }).catch(err => {
+        // console.log(err)
+        alert(err)
       })
       // window.backend.Todos.getFiles().then(result => {
       //   console.log(result)
