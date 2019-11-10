@@ -1,8 +1,8 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" clipped fixed app>
       <v-list dense>
-        <v-list-tile>
+        <v-list-tile :to="{ path: '/foo' }">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
@@ -10,7 +10,7 @@
             <v-list-tile-title>Dashboard</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile :to="{ path: '/bar' }">
           <v-list-tile-action>
             <v-icon>settings</v-icon>
           </v-list-tile-action>
@@ -27,7 +27,11 @@
     <v-content>
       <v-container fluid class="px-0">
         <v-layout justify-center align-center class="px-0">
-          <hello-world></hello-world>
+         <transition>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
         </v-layout>
       </v-container>
     </v-content>
@@ -38,18 +42,19 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   data: () => ({
-    drawer: false
-  }),
-  components: {
-    HelloWorld
-  },
-  props: {
-    source: String
-  }
+    drawer: false,
+    appTitle: 'Meal Prep',
+    items: [
+        { title: 'Menu', url: '/menu' },
+        { title: 'Profile', url: '/about' },
+        { title: 'Sign In', url: '/sign-in' },
+        { title: 'Join', url: '/join' }
+    ]
+  })
 };
 </script>
 

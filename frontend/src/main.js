@@ -2,14 +2,11 @@ import 'babel-polyfill';
 import Vue from 'vue';
 
 // Setup Vuetify
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify);
-import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
 
-import VueGoogleCharts from 'vue-google-charts'
- 
-Vue.use(VueGoogleCharts)
 import VueApexCharts from 'vue-apexcharts'
 
 Vue.use(VueApexCharts)
@@ -19,10 +16,19 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
 
-import * as Wails from '@wailsapp/runtime';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter)
 
+import routes from './routes';
+
+const router = new VueRouter({
+	mode: 'history',
+  routes
+})
+import * as Wails from '@wailsapp/runtime';
 Wails.Init(() => {
 	new Vue({
+		router,
 		render: h => h(App)
-	}).$mount('#app');
+	}).$mount('#app')
 });
