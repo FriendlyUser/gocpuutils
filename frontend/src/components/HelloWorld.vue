@@ -9,13 +9,10 @@
           <v-card-actions>
             <v-layout justify-center align-center class="px-0">
               <v-btn color="blue" dark @click="getFilesInDir">Get Files</v-btn>
-              <treemap-chart :data="chartData" :options="options" />
             </v-layout>
           </v-card-actions>
         </v-card>
         <apexchart type="radialBar" :options="options" :series="series"></apexchart>
-        <treemap-chart :data="chartData" :options="options" />
-        <TreeMap />
       </v-flex>
     </v-layout>
     <div class="text-xs-center">
@@ -41,6 +38,10 @@ export default {
     return {
       series: [87],
       options: {
+        charts: {
+          height: 650,
+          type: 'radialBar',
+        },
         labels: ['CPU Usage']
       },
       message: " ",
