@@ -2,6 +2,8 @@ package main
 import (
   "github.com/leaanthony/mewn"
   "github.com/wailsapp/wails"
+  "github.com/FriendlyUser/Wails-fileSize/pkg/sys"
+	"github.com/FriendlyUser/Wails-fileSize/pkg/files"
 )
 
 func basic() string {
@@ -13,7 +15,8 @@ func main() {
   js := mewn.String("./frontend/dist/app.js")
   css := mewn.String("./frontend/dist/app.css")
 
-  myTodoList, err := NewTodos()
+  myFileList, err := NewFiles()
+  stats := &sys.Stats{}
 	if err != nil {
 		// log.Fatal(err)
 	}
@@ -25,7 +28,7 @@ func main() {
     CSS:    css,
     Colour: "#131313",
   })
-  // app.Bind(basic)
-  app.Bind(myTodoList)
+  app.Bind(myFileList)
+  app.Bind(stats)
   app.Run()
 }

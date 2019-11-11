@@ -1,5 +1,5 @@
 // contains logic for accessing files from directory
-package main
+package files
 
 import (
 	"encoding/json"
@@ -12,7 +12,7 @@ import (
   "strings"
 )
 
-type Todos struct {
+type Files struct {
   filename string
   SelectedDir string
 	runtime  *wails.Runtime
@@ -20,18 +20,18 @@ type Todos struct {
 }
 
 // NewTodos attempts to create a new Todo list
-func NewTodos() (*Todos, error) {
+func NewFiles() (*Files, error) {
 	// Create new Todos instance
-	result := &Todos{}
+	result := &Files{}
 	// Return it
 	return result, nil
 }
 
 // file picker seems broken for now
-func (t *Todos) GetFiles() (string, error) {
+func (t *Files) GetFiles() (string, error) {
   t.logger.Infof("This is fine")
   filename := t.runtime.Dialog.SelectDirectory()
-  directory := strings.Replace(filename, "\\", "//", -1)
+  directory := "src/frontend"
   t.logger.Infof(directory)
   // call is directory IsDirectory
   values := iterateJSON(directory)
@@ -43,14 +43,14 @@ func (t *Todos) GetFiles() (string, error) {
   t.SelectedDir = filename
   return string(values), nil
 }
-func (t *Todos) GetDir() (string, error) {
+func (t *Files) GetDir() (string, error) {
   t.logger.Infof(t.SelectedDir)
   return string(t.SelectedDir), nil
 }
 
-func (t *Todos) WailsInit(runtime *wails.Runtime) error {
+func (t *Files) WailsInit(runtime *wails.Runtime) error {
 	t.runtime = runtime
-	t.logger = t.runtime.Log.New("Todos")
+	t.logger = t.runtime.Log.New("Files")
 
 	// Set the default filename to $HOMEDIR/mylist.json
 	// homedir, err := runtime.FileSystem.HomeDir()

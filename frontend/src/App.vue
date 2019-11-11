@@ -1,23 +1,20 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" dark>
     <v-navigation-drawer v-model="drawer" clipped fixed app>
-      <v-list dense>
-        <v-list-tile :to="{ path: '/foo' }">
-          <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Dashboard</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile :to="{ path: '/bar' }">
-          <v-list-tile-action>
-            <v-icon>settings</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Settings</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+       <v-list dense>
+        <div v-for="item in items" :key="item.title">
+          <v-list-tile
+            :slot="item"
+            :to="item.url"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>         
+        </div>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left>
@@ -49,10 +46,12 @@ export default {
     drawer: false,
     appTitle: 'Meal Prep',
     items: [
-        { title: 'Menu', url: '/menu' },
-        { title: 'Profile', url: '/about' },
-        { title: 'Sign In', url: '/sign-in' },
-        { title: 'Join', url: '/join' }
+        { title: 'Menu', url: '/menu', icon: 'dashboard' },
+        { title: 'Profile', url: '/about', icon: 'settings' },
+        { title: 'Sign In', url: '/sign-in', icon: 'settings' },
+        { title: 'Join', url: '/join', icon: 'dashboard' },
+        { title: 'Foo', url: '/foo', icon: 'settings' },
+        { title: 'Bar', url: '/bar', icon: 'settings' }
     ]
   })
 };
