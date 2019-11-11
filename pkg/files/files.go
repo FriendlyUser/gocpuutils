@@ -1,5 +1,5 @@
 // contains logic for accessing files from directory
-package main
+package files
 
 import (
 	"encoding/json"
@@ -8,41 +8,49 @@ import (
 	"path/filepath"
   "time"
 	"io/ioutil"
-	"github.com/wailsapp/wails"
+  "github.com/wailsapp/wails"
+  "strings"
 )
 
-type Todos struct {
-	filename string
+type Files struct {
+  filename string
+  SelectedDir string
 	runtime  *wails.Runtime
-	logger   *wails.CustomLogger
+  logger   *wails.CustomLogger
 }
 
 // NewTodos attempts to create a new Todo list
-func NewTodos() (*Todos, error) {
+func NewFiles() (*Files, error) {
 	// Create new Todos instance
-	result := &Todos{}
+	result := &Files{}
 	// Return it
 	return result, nil
 }
 
 // file picker seems broken for now
-func (t *Todos) GetFiles() (string, error) {
+func (t *Files) GetFiles() (string, error) {
   t.logger.Infof("This is fine")
-	// filename := t.runtime.Dialog.SelectFile()
-	// call is directory IsDirectory
-	values := iterateJSON("frontend/src")
+  filename := t.runtime.Dialog.SelectDirectory()
+  directory := "src/frontend"
+  t.logger.Infof(directory)
+  // call is directory IsDirectory
+  values := iterateJSON(directory)
+  // values := iterateJSON(filename)
 	// if len(filename) > 0 {
 	// 	// t.setFilename(filename)
 	// 	t.runtime.Events.Emit("filemodified")
   // }
-  dir, _ := os.Getwd()
-  t.logger.Infof(dir)
-  t.logger.Infof(dir)
+  t.SelectedDir = filename
   return string(values), nil
 }
-func (t *Todos) WailsInit(runtime *wails.Runtime) error {
+func (t *Files) GetDir() (string, error) {
+  t.logger.Infof(t.SelectedDir)
+  return string(t.SelectedDir), nil
+}
+
+func (t *Files) WailsInit(runtime *wails.Runtime) error {
 	t.runtime = runtime
-	t.logger = t.runtime.Log.New("Todos")
+	t.logger = t.runtime.Log.New("Files")
 
 	// Set the default filename to $HOMEDIR/mylist.json
 	// homedir, err := runtime.FileSystem.HomeDir()
@@ -61,10 +69,19 @@ type File struct {
   IsLink       bool      `json:"IsLink"`
   IsDir        bool      `json:"IsDir"`
   LinksTo      string    `json:"LinksTo"`
-  Size         int64     `json:"Size"`
-  Name         string    `json:"Name"`
+  Size         int64     `json:"value"`
+  Name         string    `json:"label"`
   Path         string    `json:"Path"`
-  Children     []*File   `json:"Children"`
+  Children     []*File   `json:"children"`
+}
+
+func stringInSlice(a string, list []string) bool {
+  for _, b := range list {
+      if b == a {
+          return true
+      }
+  }
+  return false
 }
 
 func iterateJSON(path string) []byte {
@@ -76,9 +93,11 @@ func iterateJSON(path string) []byte {
       stack = stack[:len(stack)-1]
       children, _ := ioutil.ReadDir(file.Path) //get the children of entry
       for _, chld := range children {          //for each child
+        if stringInSlice(chld.Name(), []string{"node_modules", "dist", "package-lock.json", "assets/images/logo.png", "logo.png"}) == false {
           child := toFile(chld, filepath.Join(file.Path, chld.Name())) //turn it into a File object
           file.Children = append(file.Children, child)                 //append it to the children of the current file popped
           stack = append(stack, child)                                 //append the child to the stack, so the same process can be run again
+        }
       }
   }
   output, _ := json.MarshalIndent(rootFile, "", "     ")

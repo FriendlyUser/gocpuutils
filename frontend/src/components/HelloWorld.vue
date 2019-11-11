@@ -9,9 +9,13 @@
           <v-card-actions>
             <v-layout justify-center align-center class="px-0">
               <v-btn color="blue" dark @click="getFilesInDir">Get Files</v-btn>
+              <treemap-chart :data="chartData" :options="options" />
             </v-layout>
           </v-card-actions>
         </v-card>
+        <apexchart type="radialBar" :options="options" :series="series"></apexchart>
+        <treemap-chart :data="chartData" :options="options" />
+        <TreeMap />
       </v-flex>
     </v-layout>
     <div class="text-xs-center">
@@ -35,10 +39,14 @@ import Wails from '@wailsapp/runtime'
 export default {
   data() {
     return {
+      series: [87],
+      options: {
+        labels: ['CPU Usage']
+      },
       message: " ",
       raised: true,
-      dialog: false
-    };
+      dialog: false,
+    }
   },
   methods: {
     getMessage: function() {
@@ -51,12 +59,23 @@ export default {
     getFilesInDir: function() {
       var self = this;
       Wails.Log.Info("New Code is Going on");
-      console.log("Doing Something")
-      console.log(window.backend)
+      // console.log("Doing Something")
+      // console.log(window.backend)
       window.backend.Todos.GetFiles().then(result => {
-        console.log(result)
+        self.chartData = {
+          series: [JSON.parse(result)]
+        }
       }).catch(err => {
+        // console.log(err)
         console.log(err)
+      })
+       window.backend.Todos.GetDir().then(result => {
+        self.chartData = {
+          series: [JSON.parse(result)]
+        }
+      }).catch(err => {
+        // console.log(err)
+        alert(err)
       })
       // window.backend.Todos.getFiles().then(result => {
       //   console.log(result)
