@@ -9,7 +9,7 @@ import (
   "time"
 	"io/ioutil"
   "github.com/wailsapp/wails"
-  "strings"
+  // "strings"
 )
 
 type Files struct {

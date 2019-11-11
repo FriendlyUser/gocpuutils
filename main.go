@@ -2,8 +2,8 @@ package main
 import (
   "github.com/leaanthony/mewn"
   "github.com/wailsapp/wails"
-  "github.com/FriendlyUser/Wails-fileSize/pkg/sys"
-	"github.com/FriendlyUser/Wails-fileSize/pkg/files"
+  "github.com/FriendlyUser/gocpuutils/pkg/sys"
+	"github.com/FriendlyUser/gocpuutils/pkg/files"
 )
 
 func basic() string {
@@ -15,7 +15,7 @@ func main() {
   js := mewn.String("./frontend/dist/app.js")
   css := mewn.String("./frontend/dist/app.css")
 
-  myFileList, err := NewFiles()
+  myFileList, err := files.NewFiles()
   stats := &sys.Stats{}
 	if err != nil {
 		// log.Fatal(err)
