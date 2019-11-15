@@ -31,4 +31,4 @@ Wails.Init(() => {
 		router,
 		render: h => h(App)
 	}).$mount('#app')
-});
+})

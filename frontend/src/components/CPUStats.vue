@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <v-container grid-list-md text-xs-center>
+  <v-layout row wrap>
+    <v-flex xs4>
     <v-alert
       :value="true"
       type="success"
@@ -7,31 +9,21 @@
       <h3>Num Cores</h3>
       <p>{{cores}}</p>
     </v-alert>
-    <br />
-    <hr />
-    <v-card>
-      <v-card-title primary-title>
-        <div>
-          <h3 class="headline mb-0">Num Cores</h3>
-          <div> {{ cores }} </div>
-        </div>
-      </v-card-title>
-    </v-card>
-    <v-item-group>
+    </v-flex>
+    <v-flex
+      v-for="cpu in cpuInfo"
+      :key="cpu.cpu"
+      xs12
+      md12
+    >
       <v-card>
-        <v-flex
-          v-for="cpu in cpuInfo"
-          :key="cpu.cpu"
-          xs12
-          md12
-        >
           <v-card-title primary-title>
             <div>
               <h3 class="headline mb-0">Cpu Id: {{ cpu.cpu }}</h3>
             </div>
           </v-card-title>
           <v-card-text>
-            <ol>
+            <ul>
               <li>
                 Modal Name: {{cpu.modelName}} 
               </li> 
@@ -47,12 +39,60 @@
               <li> 
                 Frequency: {{cpu.mhz}} MHz
               </li>
-            </ol>
+            </ul>
           </v-card-text>
-        </v-flex>
-      </v-card>
-    </v-item-group>
-  </div>
+        </v-card>
+      </v-flex>
+      <h3> 
+        Processors
+      </h3>
+      <v-flex
+        v-for="cpu in cpuTimes"
+        :key="cpu.cpu"
+        xs12
+        md12
+      >
+        <v-card>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">Cpu Id: {{ cpu.cpu }}</h3>
+            </div>
+          </v-card-title>
+          <v-card-text>
+            <ul>
+              <li>
+                Guest: {{cpu.guest}} 
+              </li> 
+              <li> 
+                guestNice: {{cpu.guestNice}}
+              </li> 
+              <li> 
+                Idle: {{cpu.Idle}}
+              </li>
+              <li>
+                ioWait: {{cpu.ioWait}} 
+              </li> 
+              <li> 
+                IRQ: {{cpu.irq}}
+              </li>
+              <li> 
+                IRQ: {{cpu.softirq}}
+              </li>
+              <li> 
+                Steal: {{cpu.steal}}
+              </li>
+              <li> 
+                Guest: {{cpu.guest}}
+              </li>
+              <li> 
+                GuestNice: {{cpu.guestNice}}
+              </li>
+            </ul>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -77,13 +117,17 @@ export default {
           stepping: 0,
           vendorId: "GenuineIntel"
         }
+      ],
+      cpuTimes: [
+        {
+
+        }
       ]
     };
   },
   mounted: function() {
     window.backend.Stats.GetDiskSerialNum(true)
     .then(result => {
-      console.log(result)
       if (result) this.cores = result.disk
     })
     .catch(err => {
@@ -91,8 +135,12 @@ export default {
     })
     window.backend.Stats.GetInfo()
     .then(result => {
-      console.log(result)
       if (result) this.cpuInfo = result
+    })
+    window.backend.Stats.GetTimes()
+    .then(result => {
+      console.log(result)
+      if (result) this.cpuTimes = result
     })
     .catch(err => {
       console.log(err)

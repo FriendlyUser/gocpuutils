@@ -40,7 +40,7 @@ func (s *Stats) WailsInit(runtime *wails.Runtime) error {
 
 // Times
 func (s *Stats) GetTimes() []cpu.TimesStat {
-	diskInfo, err := cpu.Times()
+	diskInfo, err := cpu.Times(true)
 	if err != nil {
 		s.log.Errorf("unable to get cpu times: %s", err.Error())
 		return nil
